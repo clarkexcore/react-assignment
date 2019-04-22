@@ -9,6 +9,8 @@
 
 }
 
-
-/* FOR GLOBAL CSS CHANGES
-:gloabe .Person{} */
+@media (min-width: 500px){
+    .Person{
+        width: 450px;
+    }
+}

@@ -1,5 +1,6 @@
 // Always need to import React
 import React, { Component } from 'react';
+import classes from './App.module.css';
 import './App.css';
 import Person from './Person/Person.js';
 
@@ -65,16 +66,17 @@ class App extends Component {
 
     //People like to create style in JS
     //Inline styles are scoped to the component/module/elements
-    const style = {
-        backgroundColor : 'white',
-        font: 'inherit',
-        border: '1px solid blue',
-        padding: '8px',
-        cursor: 'pointer',
-    };
+    // const style = {
+    //     backgroundColor : 'white',
+    //     font: 'inherit',
+    //     border: '1px solid blue',
+    //     padding: '8px',
+    //     cursor: 'pointer',
+    // };
 
     //Making the conditions for the render object. Preferred way of outputting content.
     let persons = null;
+    let btnClass = "";
 
     if (this.state.showPersons) {
         persons = (
@@ -107,14 +109,15 @@ class App extends Component {
                 /> */}
             </div>
         );
+        btnClass = classes.Red
     }
 
     return (
       //This is JSX not HTML.
-      	<div className="App">
+      	<div className={classes.App}>
 			<h1>Hello I'm a React App</h1>
 			<p>This is really working!!</p>
-			<button style={style} onClick={this.togglePersonsHandler}>Switch Name</button>
+			<button onClick={this.togglePersonsHandler} className={btnClass}>Switch Name</button>
             {persons}        
       	</div>
       
