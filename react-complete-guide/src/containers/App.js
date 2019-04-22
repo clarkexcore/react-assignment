@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import classes from './App.module.css';
 import './App.css';
-import Person from './Person/Person.js';
-
+import Cockpit from '../components/Cockpit/Cockpit';
+import Persons from '../components/Person/Persons/Persons';
 
 class App extends Component {
   //State is really important
@@ -76,48 +76,22 @@ class App extends Component {
 
     //Making the conditions for the render object. Preferred way of outputting content.
     let persons = null;
-    let btnClass = "";
 
     if (this.state.showPersons) {
-        persons = (
-            <div >
-                {/* This Maps our Persons array */}
-                {this.state.persons.map((person, index) => {
-                    return <Person 
-                        name={person.name} 
-                        click={() => this.deletePersonHandler(index)} 
-                        age={person.age}
-                        key={person.id}
-                        change={(event) => this.nameChangeHandler(event, person.id)}
-                    />
-                })}
-                {/* <Person 
-                    name={this.state.persons[0].name} 
-                    age={this.state.persons[0].age} 
-                />
-                <Person 
-                    name={this.state.persons[1].name} 
-                    age={this.state.persons[1].age}
-                    click={this.switchNameHandler.bind(this, "Killer Killer")}
-                    change={this.nameChangeHandler}
-                >
-                    My Hobbies: Comics
-                </Person>
-                <Person 
-                    name={this.state.persons[2].name}
-                    age={this.state.persons[2].age}
-                /> */}
-            </div>
-        );
-        btnClass = classes.Red
+        persons = 
+            <Persons 
+                persons={this.state.persons}
+                clicked={this.deletePersonHandler}
+                changed={this.nameChangeHandler}
+            />
     }
 
     return (
       //This is JSX not HTML.
       	<div className={classes.App}>
-			<h1>Hello I'm a React App</h1>
-			<p>This is really working!!</p>
-			<button onClick={this.togglePersonsHandler} className={btnClass}>Switch Name</button>
+			<Cockpit 
+                toggle={this.togglePersonsHandler}
+            />
             {persons}        
       	</div>
       
