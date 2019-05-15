@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './Cockpit.module.css';
 
-const cockpit = (props) => {
+const Cockpit = (props) => {
+    useEffect(() => {
+        console.log("[Cockpit.js] useEffect");
+        //Http request...
+        setTimeout(() => {
+            alert("Saved Data to Cloud");
+        }, 1000);
+        return () => {
+            console.log("[Cockpit.js] Cleanup UE")
+        }
+    }, []);
+
+    useEffect(() => {
+        console.log("[Cockpit.js] 2 useEffect")
+        return () => {
+            console.log("[Cockpit.js] 2 Cleanup UE")
+        }
+    });
+
     let btnClass = "";
     btnClass = classes.Red
     return(
@@ -13,4 +31,4 @@ const cockpit = (props) => {
     );
 }
 
-export default cockpit;
+export default Cockpit;
