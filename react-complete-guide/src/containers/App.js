@@ -2,8 +2,12 @@
 import React, { Component } from 'react';
 import classes from './App.module.css';
 import './App.css';
+
 import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Person/Persons/Persons';
+
+import Aux from '../hoc/Aux';
+import withClass from '../hoc/withClass';
 
 class App extends Component {
   constructor(props){
@@ -112,14 +116,16 @@ class App extends Component {
 
     return (
       //This is JSX not HTML.
-      	<div className={classes.App}>
+      	<Aux>
           <button onClick={() => {this.setState({ showCockpit: false })}}>Remove Cockput</button>
           {this.state.showCockpit ? <Cockpit
+            personsLength={this.state.persons.length}
             title={this.props.appTitle} 
             toggle={this.togglePersonsHandler}
+            showPersons={this.state.showPersons}
           /> : null}
           {persons}        
-      	</div>
+      	</Aux>
       
     );
     //return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
@@ -128,4 +134,4 @@ class App extends Component {
 
 //We need to always export these things.
 //Radium() is a higher order function.  
-export default App;
+export default withClass(App, classes.App);
