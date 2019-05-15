@@ -6,7 +6,7 @@ const cockpit = (props) => {
     btnClass = classes.Red
     return(
         <div className={classes.Cockpit}>
-            <h1>Hello I'm a React App</h1>
+            <h1>{props.title}</h1>
             <p>This is really working!!</p>
             <button className={btnClass} onClick={props.toggle}>Switch Name</button>
         </div>

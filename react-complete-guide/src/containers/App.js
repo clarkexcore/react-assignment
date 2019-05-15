@@ -6,7 +6,11 @@ import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Person/Persons/Persons';
 
 class App extends Component {
-  //State is really important
+  constructor(props){
+    super(props);
+    console.log("[App.js] constructor");
+  }
+  //State is really important 
   state = {
     persons: [
       {id: 1, name: 'Alex', age: 28},
@@ -14,6 +18,25 @@ class App extends Component {
       {id: 3, name: 'Brent', age: 38}
     ],
     showPersons: false
+  }
+  
+
+  static getDerivedStateFromProps(props, state){
+    console.log("[App.js] getDerivedStateFromProps", props);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log("[App.js] Component Did Mount");
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+    console.log("[App.js] should component update");
+    return true;
+  }
+
+  componentDidUpdate(){
+    console.log("[App.js] Component Did Update");
   }
 
   //Method for Switch Names
@@ -63,7 +86,7 @@ class App extends Component {
 
   //Always need to render HTML to the DOM
   render() {
-
+    console.log("[App.js] render");
     //People like to create style in JS
     //Inline styles are scoped to the component/module/elements
     // const style = {
@@ -89,10 +112,11 @@ class App extends Component {
     return (
       //This is JSX not HTML.
       	<div className={classes.App}>
-			<Cockpit 
-                toggle={this.togglePersonsHandler}
-            />
-            {persons}        
+          <Cockpit
+            title={this.props.appTitle} 
+            toggle={this.togglePersonsHandler}
+          />
+          {persons}        
       	</div>
       
     );
