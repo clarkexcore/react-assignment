@@ -8,6 +8,7 @@ import Persons from '../components/Person/Persons/Persons';
 
 import Aux from '../hoc/Aux';
 import withClass from '../hoc/withClass';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
   constructor(props){
@@ -23,7 +24,8 @@ class App extends Component {
     ],
     showPersons: false,
     showCockpit: true,
-    changeCounter: 0
+    changeCounter: 0,
+    authenticated: false
   }
   
 
@@ -95,7 +97,14 @@ class App extends Component {
         this.setState({showPersons: !doesShow});
     }
 
-  //Always need to render HTML to the DOM
+    loginHandler = () => {
+      console.log("Yo");
+      this.setState({
+        authenticated: true
+      });
+    }
+
+   //Always need to render HTML to the DOM
   render() {
     console.log("[App.js] render");
     //People like to create style in JS
@@ -117,6 +126,7 @@ class App extends Component {
                 persons={this.state.persons}
                 clicked={this.deletePersonHandler}
                 changed={this.nameChangeHandler}
+                isAuthenticated={this.state.authenticated}
             />
     }
 
@@ -124,13 +134,18 @@ class App extends Component {
       //This is JSX not HTML.
       	<Aux>
           <button onClick={() => {this.setState({ showCockpit: false })}}>Remove Cockput</button>
-          {this.state.showCockpit ? <Cockpit
-            personsLength={this.state.persons.length}
-            title={this.props.appTitle} 
-            toggle={this.togglePersonsHandler}
-            showPersons={this.state.showPersons}
-          /> : null}
+          <AuthContext.Provider value={{authenticated: this.state.authenticated, login: this.loginHandler}}>
+          {this.state.showCockpit ? 
+            <Cockpit
+              personsLength={this.state.persons.length}
+              title={this.props.appTitle} 
+              toggle={this.togglePersonsHandler}
+              showPersons={this.state.showPersons}
+              login={this.loginHandler}
+            /> 
+            : null}
           {persons}        
+          </AuthContext.Provider>
       	</Aux>
       
     );
